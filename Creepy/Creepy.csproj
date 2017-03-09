@@ -57,6 +57,7 @@
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Systems\ILavaDynamics.cs" />
+    <Compile Include="Size.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
