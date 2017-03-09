@@ -50,6 +50,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tiles\ITile.cs" />
+    <Compile Include="Tiles\ITileObject.cs" />
+    <Compile Include="Tiles\LavaGenerator.cs" />
+    <Compile Include="Tiles\TrainStationTileObject.cs" />
+    <Compile Include="Tiles\TrainNetwork.cs" />
+    <Compile Include="Tiles\TownTileObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
