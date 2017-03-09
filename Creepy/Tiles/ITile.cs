@@ -8,7 +8,25 @@ namespace Creepy
 	/// </summary>
 	public interface ITileObject
 	{
-		
+		/// <summary>
+		/// Gets the tile where this object belongs
+		/// </summary>
+		/// <value>The tile.</value>
+		ITile Tile { get; }
+	}
+
+	public class LavaGenerator : ITileObject
+	{
+		/// <summary>
+		/// Gets or sets the lava generation speed
+		/// </summary>
+		/// <value>The generation speed.</value>
+		public float GenerationSpeed { get; set; }
+
+		/// <summary>
+		/// Gets the tile where this object belongs
+		/// </summary>
+		public ITile Tile { get; }
 	}
 
 	/// <summary>
@@ -20,6 +38,11 @@ namespace Creepy
 		/// Gets the population of this <see cref="TownTileObject"/>
 		/// </summary>
 		public int Population { get; protected set; }
+
+		/// <summary>
+		/// Gets the tile where this object belongs
+		/// </summary>
+		public ITile Tile { get; }
 	}
 
 	/// <summary>

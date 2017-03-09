@@ -9,6 +9,8 @@ using MonoMac.Foundation;
 
 
 
+
+
 #elif __IOS__ || __TVOS__
 using Foundation;
 using UIKit;
@@ -21,6 +23,8 @@ namespace Creepy
     [Register("AppDelegate")]
     class Program : UIApplicationDelegate
     
+
+
 
 
 #else
@@ -57,7 +61,6 @@ namespace Creepy
             UIApplication.Main(args, null, "AppDelegate");
 			#else
 			RunGame ();
-			game.Exit ();
 			#endif
 		}
 
