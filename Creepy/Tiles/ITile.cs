@@ -29,6 +29,27 @@ namespace Creepy
 		public ITile Tile { get; }
 	}
 
+	public class TrainStationTileObject : ITileObject
+	{
+		/// <summary>
+		/// Gets the tile where this object belongs
+		/// </summary>
+		public ITile Tile { get; }
+
+		/// <summary>
+		/// Gets the train network
+		/// </summary>
+		/// <value>The network.</value>
+		public TrainNetwork Network { get; }
+	}
+
+	/// <summary>
+	/// Manager for a network of trains and stations
+	/// </summary>
+	public class TrainNetwork
+	{
+	}
+
 	/// <summary>
 	/// represents a tile object that can have population
 	/// </summary>
