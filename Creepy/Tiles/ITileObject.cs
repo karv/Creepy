@@ -10,6 +10,6 @@ namespace Creepy
 		/// Gets the tile where this object belongs
 		/// </summary>
 		/// <value>The tile.</value>
-		ITile Tile { get; }
+		Tile Tile { get; }
 	}
 }

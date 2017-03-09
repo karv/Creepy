@@ -11,6 +11,6 @@ namespace Creepy
 		/// <summary>
 		/// Gets the tile where this object belongs
 		/// </summary>
-		public ITile Tile { get; }
+		public Tile Tile { get; }
 	}
 }

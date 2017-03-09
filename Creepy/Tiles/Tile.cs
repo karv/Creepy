@@ -6,7 +6,7 @@ namespace Creepy
 	/// <summary>
 	/// Represents a tile in the map
 	/// </summary>
-	public interface ITile
+	public class Tile
 	{
 		/// <summary>
 		/// Gets the tile location inside the map
