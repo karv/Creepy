@@ -12,6 +12,17 @@ namespace Creepy
 	}
 
 	/// <summary>
+	/// represents a tile object that can have population
+	/// </summary>
+	public class TownTileObject : ITileObject
+	{
+		/// <summary>
+		/// Gets the population of this <see cref="TownTileObject"/>
+		/// </summary>
+		public int Population { get; protected set; }
+	}
+
+	/// <summary>
 	/// Represents a tile in the map
 	/// </summary>
 	public interface ITile
