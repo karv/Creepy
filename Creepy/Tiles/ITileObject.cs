@@ -1,5 +1,5 @@
 
-namespace Creepy
+namespace Creepy.Tiles
 {
 	/// <summary>
 	/// Represents an object in the tile

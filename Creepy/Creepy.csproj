@@ -55,6 +55,8 @@
     <Compile Include="Tiles\TrainNetwork.cs" />
     <Compile Include="Tiles\TownTileObject.cs" />
     <Compile Include="Tiles\Tile.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Systems\ILavaDynamics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -74,5 +76,6 @@
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <ItemGroup>
     <Folder Include="Tiles\" />
+    <Folder Include="Systems\" />
   </ItemGroup>
 </Project>

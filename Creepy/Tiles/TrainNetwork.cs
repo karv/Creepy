@@ -1,5 +1,5 @@
 
-namespace Creepy
+namespace Creepy.Tiles
 {
 	/// <summary>
 	/// Manager for a network of trains and stations

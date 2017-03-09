@@ -1,4 +1,4 @@
-namespace Creepy
+namespace Creepy.Tiles
 {
 	public class TrainStationTileObject : ITileObject
 	{

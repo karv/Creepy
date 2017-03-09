@@ -1,5 +1,5 @@
 
-namespace Creepy
+namespace Creepy.Tiles
 {
 	/// <summary>
 	/// represents a tile object that can have population

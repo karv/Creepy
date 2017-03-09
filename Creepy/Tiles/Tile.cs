@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace Creepy
+namespace Creepy.Tiles
 {
 	/// <summary>
 	/// Represents a tile in the map
@@ -22,6 +22,8 @@ namespace Creepy
 		/// Gets the lava height relative to the tile's height
 		/// </summary>
 		float LavaHeight { get; }
+
+		float LavaViscosity { get; }
 
 		/// <summary>
 		/// Gets the collection of tile objects on this tile
