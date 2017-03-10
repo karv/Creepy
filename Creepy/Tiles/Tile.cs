@@ -11,19 +11,22 @@ namespace Creepy.Tiles
 		/// <summary>
 		/// Gets the tile location inside the map
 		/// </summary>
-		Point Location { get; }
+		public Point Location { get; }
 
 		/// <summary>
 		/// Gets the height of this tile
 		/// </summary>
-		int Height { get; }
+		public int Height { get; }
 
 		/// <summary>
 		/// Gets the lava height relative to the tile's height
 		/// </summary>
-		float LavaHeight { get; }
+		public float LavaHeight;
 
-		float LavaViscosity { get; }
+		public float LavaViscosity;
+
+		public float AbsoluteLavaHeight
+		{ get { return LavaHeight + Height; } }
 
 		/// <summary>
 		/// Gets the collection of tile objects on this tile
