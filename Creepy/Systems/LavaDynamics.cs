@@ -15,6 +15,7 @@ namespace Creepy.Systems
 		public void Update (GameTime gameTime)
 		{
 			updateDeltas (gameTime.ElapsedGameTime);
+			apply ();
 		}
 
 		void clearDeltas ()
@@ -25,6 +26,13 @@ namespace Creepy.Systems
 		}
 
 		public const float ViscosityThreshold = 0.3f;
+
+		void apply ()
+		{
+			for (int ix = 0; ix < Map.Size.Width; ix++)
+				for (int iy = 0; iy < Map.Size.Height; iy++)
+					Map [ix, iy].LavaHeight += lavaDelta [ix, iy];
+		}
 
 		void updateDeltas (TimeSpan gameTime)
 		{
