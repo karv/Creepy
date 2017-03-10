@@ -35,11 +35,24 @@ namespace Creepy.Systems
 				for (int iy = 0; iy < Map.Size.Height; iy++)
 				{
 					var aTile = Map [ix, iy];
-					var bTile = Map [ix, iy];
-					if (aTile.AbsoluteLavaHeight < bTile.AbsoluteLavaHeight)
-						tryMoveLava (bTile, aTile);
-					else
-						tryMoveLava (aTile, bTile);
+					Tile bTile;
+					if (ix < Map.Size.Width - 1)
+					{
+						bTile = Map [ix + 1, iy];
+						if (aTile.AbsoluteLavaHeight < bTile.AbsoluteLavaHeight)
+							tryMoveLava (bTile, aTile);
+						else
+							tryMoveLava (aTile, bTile);
+					}
+
+					if (iy < Map.Size.Height - 1)
+					{
+						bTile = Map [ix, iy + 1];
+						if (aTile.AbsoluteLavaHeight < bTile.AbsoluteLavaHeight)
+							tryMoveLava (bTile, aTile);
+						else
+							tryMoveLava (aTile, bTile);
+					}
 				}
 		}
 
