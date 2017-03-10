@@ -71,9 +71,10 @@ namespace Creepy.Systems
 
 			if (fromTile.LavaHeight > ViscosityThreshold)
 			{
+				var detaLavaHeight = fromTile.LavaHeight - toTile.LavaHeight;
 				var change = Math.Min (
-					             fromTile.LavaViscosity * fromTile.LavaHeight - toTile.LavaHeight,
-					             (fromTile.LavaHeight - toTile.LavaHeight) / 2);
+					             detaLavaHeight / fromTile.LavaViscosity,
+					             detaLavaHeight / 2);
 
 				lavaDelta [fromTile.Location.X, fromTile.Location.Y] -= change;
 				lavaDelta [toTile.Location.X, toTile.Location.Y] += change;
