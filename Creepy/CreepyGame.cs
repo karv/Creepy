@@ -26,10 +26,6 @@ namespace Creepy
 		{
 			Mouse.Enabled = true;
 			Components.Add (Mouse);
-			Mouse.Clicked += (sender, e) => 
-				Debug.WriteLine (string.Format ("Click@{0}", e.ClickLocation));
-			Mouse.CursorMoved += (sender, e) => 
-				Debug.WriteLine (string.Format ("Cursor moved: {0} -> {1}.", e.Origin, e.Destination));
 			base.Initialize ();
 		}
 

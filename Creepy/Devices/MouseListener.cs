@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Creepy.Devices
 {
@@ -17,6 +18,10 @@ namespace Creepy.Devices
 
 		TimeSpan doubleClickThreshold;
 
+		/// <summary>
+		/// Gets or sets the time to wait after a click to become double
+		/// </summary>
+		/// <value>The double click threshold.</value>
 		public TimeSpan DoubleClickThreshold
 		{
 			get
@@ -32,6 +37,9 @@ namespace Creepy.Devices
 
 		#region IGameComponent implementation
 
+		/// <summary>
+		/// Initialize this instance.
+		/// </summary>
 		public void Initialize ()
 		{
 			lastMouseState = Mouse.GetState ();
@@ -73,41 +81,68 @@ namespace Creepy.Devices
 		/// </summary>
 		public event EventHandler<MouseMoveEventArgs> CursorMoved;
 
+		/// <summary>
+		/// Occurs when the mouse double clicked
+		/// </summary>
+		public event EventHandler<MouseClickEventArgs> DoubleClick;
+
+		/// <summary>
+		/// Update
+		/// </summary>
 		public void Update (GameTime gameTime)
 		{
 			var currMouseState = Mouse.GetState ();
+
+			// Do not listen when it is not listening
+			if (historial.Count == 0)
+			if (currMouseState.LeftButton == ButtonState.Pressed)
+				return;
+			else
+			{
+				var newEntry = new EventEntry (DateTime.Now, currMouseState);
+				historial.Add (newEntry);
+			}
 			if (currMouseState.Position != lastMouseState.Position)
 				CursorMoved?.Invoke (this, new MouseMoveEventArgs (lastMouseState.Position, currMouseState.Position));
 
 
-			if (currMouseState.LeftButton == ButtonState.Pressed &&
-			    lastMouseState.LeftButton == ButtonState.Released)
+			if (currMouseState.LeftButton != lastEvent.Type)
 			{
-				var eventType = currMouseState.LeftButton == ButtonState.Pressed ? 
-					EventType.ButtonPressed : 
-					EventType.ButtonReleased;
-				var newEntry = new EventEntry (DateTime.Now, eventType, currMouseState);
+				var newEntry = new EventEntry (DateTime.Now, currMouseState);
 				historial.Add (newEntry);
 			}
 
-			if (lastEvent.Type == EventType.ButtonPressed && lastEvent.Time + DoubleClickThreshold < DateTime.Now)
+			if (lastEvent.Type == ButtonState.Released &&
+			    historial.Count > 1 &&
+			    lastEvent.Time + DoubleClickThreshold < DateTime.Now)
 			{
-				// user clicked
 				onClick (currMouseState);
 			}
+			else if (lastEvent.Type == ButtonState.Pressed && historial.Count == 4) // 
+			{
+				onDoubleClick (currMouseState);
+			}
+
 			lastMouseState = currMouseState;
 		}
 
 		void onClick (MouseState currMouseState)
 		{
 			Clicked?.Invoke (this, new MouseClickEventArgs (currMouseState));
+			Debug.WriteLine ("Click");
+			clearHistory ();
+		}
+
+		void onDoubleClick (MouseState currMouseState)
+		{
+			DoubleClick?.Invoke (this, new MouseClickEventArgs (currMouseState));
+			Debug.WriteLine ("2-Click");
 			clearHistory ();
 		}
 
 		void clearHistory ()
 		{
 			historial.Clear ();
-			historial.Add (new EventEntry (DateTime.Now, EventType.ButtonReleased, Mouse.GetState ()));
 		}
 
 		bool enabled;
@@ -159,13 +194,14 @@ namespace Creepy.Devices
 		struct EventEntry
 		{
 			public readonly DateTime Time;
-			public readonly EventType Type;
+
+			public ButtonState Type { get { return MouseState.LeftButton; } }
+
 			public readonly MouseState MouseState;
 
-			public EventEntry (DateTime time, EventType type, MouseState state)
+			public EventEntry (DateTime time, MouseState state)
 			{
 				Time = time;
-				Type = type;
 				MouseState = state;
 			}
 		}
@@ -174,7 +210,7 @@ namespace Creepy.Devices
 		{
 			const int predetMaxEvents = 10;
 			historial = new List<EventEntry> (predetMaxEvents);
-			DoubleClickThreshold = TimeSpan.FromMilliseconds (100);
+			DoubleClickThreshold = TimeSpan.FromMilliseconds (200);
 		}
 	}
 }
