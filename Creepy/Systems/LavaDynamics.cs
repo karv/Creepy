@@ -12,6 +12,15 @@ namespace Creepy.Systems
 	{
 		float [,] lavaDelta;
 
+		/// <summary>
+		/// The delta ob absolute heights between adyacent tiles. Below this limit, lava won't move, 
+		/// even if there is it is not in equilibrium
+		/// </summary>
+		public const float ViscosityThreshold = 0.3f;
+
+		/// <summary>
+		/// Updates the system
+		/// </summary>
 		public void Update (GameTime gameTime)
 		{
 			updateDeltas (gameTime.ElapsedGameTime);
@@ -25,7 +34,6 @@ namespace Creepy.Systems
 					lavaDelta [ix, iy] = 0;
 		}
 
-		public const float ViscosityThreshold = 0.3f;
 
 		void apply ()
 		{
@@ -89,21 +97,39 @@ namespace Creepy.Systems
 			}
 		}
 
+		/// <summary>
+		/// Initializes this system
+		/// </summary>
 		public void Initialize ()
 		{
 			lavaDelta = new float[Map.Size.Width, Map.Size.Height];
+			Enabled = true;
 		}
 
+		/// <summary>
+		/// Gets the map
+		/// </summary>
 		public Map Map { get; }
 
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="Creepy.Systems.LavaDynamics"/> is enabled.
+		/// If not enables, <see cref="Update"/> will be no invoked
+		/// </summary>
 		public bool Enabled { get; set; }
 
+		/// <summary>
+		/// Gets the update order for the game components
+		/// </summary>
 		public int UpdateOrder { get { return 0; } }
 
 		public event EventHandler<EventArgs> EnabledChanged;
 
 		public event EventHandler<EventArgs> UpdateOrderChanged;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Creepy.Systems.LavaDynamics"/> class.
+		/// </summary>
+		/// <param name="map">Map.</param>
 		public LavaDynamics (Map map)
 		{
 			Map = map;

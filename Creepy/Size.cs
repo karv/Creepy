@@ -2,9 +2,19 @@
 
 namespace Creepy
 {
+	/// <summary>
+	/// A 2-dimentional size immutable struct
+	/// </summary>
 	public struct Size : IEquatable<Size>
 	{
+		/// <summary>
+		/// The height
+		/// </summary>
 		public readonly int Height;
+
+		/// <summary>
+		/// The width
+		/// </summary>
 		public readonly int Width;
 
 		#region IEquatable implementation
@@ -26,11 +36,19 @@ namespace Creepy
 
 		#endregion
 
-		public string ToString ()
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Creepy.Size"/>.
+		/// </summary>
+		public override string ToString ()
 		{
 			return "Size(" + Width + ", " + Height + ")";
 		}
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Creepy.Size"/> struct.
+		/// </summary>
+		/// <param name="height">Height.</param>
+		/// <param name="width">Width.</param>
 		public Size (int height, int width)
 		{
 			Height = height;
