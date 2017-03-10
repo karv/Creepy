@@ -11,7 +11,17 @@ namespace Creepy
 
 		bool IEquatable<Size>.Equals (Size other)
 		{
-			throw new NotImplementedException ();
+			return Width==other.Width&&Height==other.Height;
+		}
+
+		public static bool operator != ( Size s1, Size s2 )
+		{
+			return !s1.Equals(s2);
+		}
+
+		public static bool operator == ( Size s1, Size s2 )
+		{
+			return s1.Equals(s2);
 		}
 
 		#endregion
@@ -20,6 +30,10 @@ namespace Creepy
 		{
 			Height = height;
 			Width = width;
+		}
+
+		public string ToString(){
+			return "Size("+Width+", "+Height+")";
 		}
 	}
 }
