@@ -7,6 +7,10 @@ using System.Linq;
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 
+
+
+
+
 #elif __IOS__ || __TVOS__
 using Foundation;
 using UIKit;
@@ -19,6 +23,10 @@ namespace Creepy
     [Register("AppDelegate")]
     class Program : UIApplicationDelegate
     
+
+
+
+
 #else
 	static class Program
     #endif
@@ -40,7 +48,7 @@ namespace Creepy
 		#if !MONOMAC && !__IOS__  && !__TVOS__
         [STAThread]
 		#endif
-        static void Main (string[] args)
+        static void Main (string [] args)
 		{
 			#if MONOMAC
             NSApplication.Init ();
