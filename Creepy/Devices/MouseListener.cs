@@ -63,6 +63,7 @@ namespace Creepy.Devices
 
 			if (currMouseState.Position != lastMouseState.Position)
 				CursorMoved?.Invoke (this, new MouseMoveEventArgs (lastMouseState.Position, currMouseState.Position));
+			lastMouseState = currMouseState;
 		}
 
 		bool enabled;
