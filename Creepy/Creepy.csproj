@@ -53,12 +53,13 @@
     <Compile Include="Tiles\ITileObject.cs" />
     <Compile Include="Tiles\LavaGenerator.cs" />
     <Compile Include="Tiles\TrainStationTileObject.cs" />
-    <Compile Include="Tiles\TrainNetwork.cs" />
     <Compile Include="Tiles\TownTileObject.cs" />
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Systems\ILavaDynamics.cs" />
     <Compile Include="Systems\LavaDynamics.cs" />
+    <Compile Include="Trains\TrainNetwork.cs" />
+    <Compile Include="Trains\Railroad.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -79,5 +80,6 @@
   <ItemGroup>
     <Folder Include="Tiles\" />
     <Folder Include="Systems\" />
+    <Folder Include="Trains\" />
   </ItemGroup>
 </Project>
