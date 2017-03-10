@@ -58,6 +58,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Systems\ILavaDynamics.cs" />
     <Compile Include="Size.cs" />
+    <Compile Include="Systems\LavaDynamics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
