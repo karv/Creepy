@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +61,7 @@
     <Compile Include="Devices\MouseListener.cs" />
     <Compile Include="Devices\MouseClickEventArgs.cs" />
     <Compile Include="Devices\MouseMoveEventArgs.cs" />
+    <Compile Include="CreepyGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

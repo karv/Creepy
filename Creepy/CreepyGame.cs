@@ -1,22 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Creepy.Devices;
 
 namespace Creepy
 {
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
-	public class Game1 : Game
+	public class CreepyGame : Game
 	{
 		readonly GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		public Game1 ()
-		{
-			graphics = new GraphicsDeviceManager (this);
-			Content.RootDirectory = "Content";
-		}
+		public readonly MouseListener Mouse;
 
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
@@ -26,8 +23,8 @@ namespace Creepy
 		/// </summary>
 		protected override void Initialize ()
 		{
-			// TODO: Add your initialization logic here
-            
+			Mouse.Enabled = true;
+			Components.Add (Mouse);
 			base.Initialize ();
 		}
 
@@ -73,6 +70,15 @@ namespace Creepy
 			//TODO: Add your drawing code here
             
 			base.Draw (gameTime);
+		}
+
+		/// <summary>
+		/// </summary>
+		public CreepyGame ()
+		{
+			graphics = new GraphicsDeviceManager (this);
+			Content.RootDirectory = "Content";
+			Mouse = new MouseListener ();
 		}
 	}
 }
