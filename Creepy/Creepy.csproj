@@ -59,6 +59,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Systems\ILavaDynamics.cs" />
     <Compile Include="Systems\LavaDynamics.cs" />
+    <Compile Include="Devices\MouseListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
@@ -79,5 +80,6 @@
   <ItemGroup>
     <Folder Include="Tiles\" />
     <Folder Include="Systems\" />
+    <Folder Include="Devices\" />
   </ItemGroup>
 </Project>
