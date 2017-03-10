@@ -25,7 +25,7 @@ namespace Creepy
 		public Map (Size size)
 		{
 			Size = size;
-			tiles = new Tile[Size.Width, Size.Height] ();
+			tiles = new Tile[Size.Width, Size.Height];
 		}
 	}
 }
