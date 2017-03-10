@@ -49,6 +49,9 @@ namespace Creepy.Systems
 				throw new ArgumentNullException ("toTile");
 			if (fromTile == null)
 				throw new ArgumentNullException ("fromTile");
+
+			if (toTile == fromTile)
+				throw new InvalidOperationException ();
 			
 			if (fromTile.AbsoluteLavaHeight < toTile.AbsoluteLavaHeight)
 				throw new InvalidOperationException ("Lava cannot go upward");
