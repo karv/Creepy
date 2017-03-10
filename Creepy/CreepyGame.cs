@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Creepy.Devices;
+using System.Diagnostics;
 
 namespace Creepy
 {
@@ -25,6 +26,10 @@ namespace Creepy
 		{
 			Mouse.Enabled = true;
 			Components.Add (Mouse);
+			Mouse.Clicked += (sender, e) => 
+				Debug.WriteLine (string.Format ("Click@{0}", e.ClickLocation));
+			Mouse.CursorMoved += (sender, e) => 
+				Debug.WriteLine (string.Format ("Cursor moved: {0} -> {1}.", e.Origin, e.Destination));
 			base.Initialize ();
 		}
 
@@ -50,7 +55,8 @@ namespace Creepy
 			// For Mobile devices, this logic will close the Game when the Back button is pressed
 			// Exit() is obsolete on iOS
 			#if !__IOS__ &&  !__TVOS__
-			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState ().IsKeyDown (Keys.Escape))
+			if (GamePad.GetState (PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+			    Keyboard.GetState ().IsKeyDown (Keys.Escape))
 				Exit ();
 			#endif
             
