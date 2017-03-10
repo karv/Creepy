@@ -4,31 +4,6 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Creepy.Devices
 {
-	[Serializable]
-	public sealed class MouseClickEventArgs : EventArgs
-	{
-		/// <summary>
-		/// The location of the click relative to the screen
-		/// </summary>
-		public Point ClickLocation { get { return new Point (MouseState.X, MouseState.Y); } }
-
-		readonly MouseState MouseState;
-
-		/// <summary>
-		/// </summary>
-		public MouseClickEventArgs (MouseState state)
-		{
-			MouseState = state;
-		}
-
-		/// <summary>
-		/// </summary>
-		public MouseClickEventArgs ()
-		{
-			MouseState = Mouse.GetState ();
-		}
-	}
-
 	/// <summary>
 	/// Captures mouse events
 	/// </summary>
@@ -40,37 +15,93 @@ namespace Creepy.Devices
 
 		public void Initialize ()
 		{
-			lastMouseState = new MouseState ();
+			lastMouseState = Mouse.GetState ();
 		}
 
 		#endregion
 
 		#region IUpdateable implementation
 
-		public event EventHandler<EventArgs> EnabledChanged;
+		/// <summary>
+		/// Occurs when enabled changed.
+		/// </summary>
+		protected event EventHandler<EventArgs> EnabledChanged;
 
-		public event EventHandler<EventArgs> UpdateOrderChanged;
+		/// <summary>
+		/// Occurs when update order changed.
+		/// </summary>
+		protected event EventHandler<EventArgs> UpdateOrderChanged;
 
-		public event EventHandler<EventArgs> Clicked;
+		event EventHandler<EventArgs> IUpdateable.EnabledChanged
+		{
+			add{ EnabledChanged += value;}
+			remove { EnabledChanged -= value;}
+		}
+
+		event EventHandler<EventArgs> IUpdateable.UpdateOrderChanged
+		{
+			add{ UpdateOrderChanged += value;}
+			remove { UpdateOrderChanged -= value;}
+		}
+
+		/// <summary>
+		/// Occurs when the mouse is clicked
+		/// </summary>
+		public event EventHandler<MouseClickEventArgs> Clicked;
+
+		/// <summary>
+		/// Occurs when cursor's position changes
+		/// </summary>
+		public event EventHandler<MouseMoveEventArgs> CursorMoved;
 
 		public void Update (GameTime gameTime)
 		{
 			var currMouseState = Mouse.GetState ();
 			if (currMouseState.LeftButton == ButtonState.Pressed &&
 			    lastMouseState.LeftButton == ButtonState.Released)
+				Clicked?.Invoke (this, new MouseClickEventArgs (currMouseState));
+
+			if (currMouseState.Position != lastMouseState.Position)
+				CursorMoved?.Invoke (this, new MouseMoveEventArgs (lastMouseState.Position, currMouseState.Position));
+		}
+
+		bool enabled;
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="Creepy.Devices.MouseListener"/> is enabled.
+		/// </summary>
+		public bool Enabled
+		{
+			get
 			{
-				OnClicked (currMouseState);
+				return enabled;
+			}
+			set
+			{
+				EnabledChanged?.Invoke (this, EventArgs.Empty);
+				enabled = value;
 			}
 		}
 
-		protected virtual void OnClicked (MouseState state)
+		int updateOrder;
+
+		/// <summary>
+		/// Gets or sets the update order.
+		/// </summary>
+		protected int UpdateOrder
 		{
-			Clicked?.Invoke (this, new MouseClickEventArgs (state));
+			get
+			{
+				return updateOrder;
+			}
+			set
+			{
+				UpdateOrderChanged?.Invoke (this, EventArgs.Empty);
+				updateOrder = value;
+			}
 		}
 
-		public bool Enabled { get; set; }
-
-		public int UpdateOrder { get; set; }
+		int IUpdateable.UpdateOrder { get { return UpdateOrder; } }
 
 		#endregion
 		

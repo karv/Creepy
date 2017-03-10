@@ -60,6 +60,8 @@
     <Compile Include="Systems\ILavaDynamics.cs" />
     <Compile Include="Systems\LavaDynamics.cs" />
     <Compile Include="Devices\MouseListener.cs" />
+    <Compile Include="Devices\MouseClickEventArgs.cs" />
+    <Compile Include="Devices\MouseMoveEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
