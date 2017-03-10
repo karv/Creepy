@@ -19,6 +19,27 @@ namespace Creepy
 
 		#region IEquatable implementation
 
+		/// <summary>
+		/// Determines whether the specified <see cref="System.Object"/> is equal to the current <see cref="Creepy.Size"/>.
+		/// </summary>
+		public override bool Equals (object obj)
+		{
+			if (obj is Size)
+			{
+				var other = (Size)obj;
+				return this == other;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Serves as a hash function for a <see cref="Creepy.Size"/> object.
+		/// </summary>
+		public override int GetHashCode ()
+		{
+			return Height ^ Width;
+		}
+
 		bool IEquatable<Size>.Equals (Size other)
 		{
 			return Width == other.Width && Height == other.Height;
