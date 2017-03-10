@@ -32,5 +32,14 @@ namespace Creepy.Tiles
 		/// Gets the collection of tile objects on this tile
 		/// </summary>
 		ICollection<ITileObject> Objects { get; }
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Creepy.Tiles.Tile"/> class.
+		/// </summary>
+		/// <param name="location">Location in the <see cref="Map"/></param>
+		public Tile (Point location)
+		{
+			Location = location;
+		}
 	}
 }
