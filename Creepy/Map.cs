@@ -1,4 +1,5 @@
 ﻿using Creepy.Tiles;
+using Microsoft.Xna.Framework;
 
 namespace Creepy
 {
@@ -14,6 +15,11 @@ namespace Creepy
 				// TODO; add checkers
 				return tiles [x, y];
 			}
+		}
+
+		public Tile this [Point p]
+		{
+			get{ return this [p.X, p.Y]; }
 		}
 
 		public Map (Size size)
