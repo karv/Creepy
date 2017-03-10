@@ -26,14 +26,14 @@ namespace Creepy
 
 		#endregion
 
+		public string ToString(){
+			return "Size("+Width+", "+Height+")";
+		}
+
 		public Size (int height, int width)
 		{
 			Height = height;
 			Width = width;
-		}
-
-		public string ToString(){
-			return "Size("+Width+", "+Height+")";
 		}
 	}
 }
