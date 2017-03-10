@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Creepy.Devices
 {
@@ -9,9 +10,27 @@ namespace Creepy.Devices
 	/// </summary>
 	public class MouseListener : IGameComponent, IUpdateable
 	{
-		#region IGameComponent implementation
-
 		MouseState lastMouseState;
+		readonly List<EventEntry> historial;
+
+		EventEntry lastEvent { get { return historial [historial.Count - 1]; } }
+
+		TimeSpan doubleClickThreshold;
+
+		public TimeSpan DoubleClickThreshold
+		{
+			get
+			{
+				return doubleClickThreshold;
+			}
+			set
+			{
+				doubleClickThreshold = value;
+				clearHistory ();
+			}
+		}
+
+		#region IGameComponent implementation
 
 		public void Initialize ()
 		{
@@ -57,13 +76,38 @@ namespace Creepy.Devices
 		public void Update (GameTime gameTime)
 		{
 			var currMouseState = Mouse.GetState ();
-			if (currMouseState.LeftButton == ButtonState.Pressed &&
-			    lastMouseState.LeftButton == ButtonState.Released)
-				Clicked?.Invoke (this, new MouseClickEventArgs (currMouseState));
-
 			if (currMouseState.Position != lastMouseState.Position)
 				CursorMoved?.Invoke (this, new MouseMoveEventArgs (lastMouseState.Position, currMouseState.Position));
+
+
+			if (currMouseState.LeftButton == ButtonState.Pressed &&
+			    lastMouseState.LeftButton == ButtonState.Released)
+			{
+				var eventType = currMouseState.LeftButton == ButtonState.Pressed ? 
+					EventType.ButtonPressed : 
+					EventType.ButtonReleased;
+				var newEntry = new EventEntry (DateTime.Now, eventType, currMouseState);
+				historial.Add (newEntry);
+			}
+
+			if (lastEvent.Type == EventType.ButtonPressed && lastEvent.Time + DoubleClickThreshold < DateTime.Now)
+			{
+				// user clicked
+				onClick (currMouseState);
+			}
 			lastMouseState = currMouseState;
+		}
+
+		void onClick (MouseState currMouseState)
+		{
+			Clicked?.Invoke (this, new MouseClickEventArgs (currMouseState));
+			clearHistory ();
+		}
+
+		void clearHistory ()
+		{
+			historial.Clear ();
+			historial.Add (new EventEntry (DateTime.Now, EventType.ButtonReleased, Mouse.GetState ()));
 		}
 
 		bool enabled;
@@ -105,6 +149,32 @@ namespace Creepy.Devices
 		int IUpdateable.UpdateOrder { get { return UpdateOrder; } }
 
 		#endregion
-		
+
+		enum EventType
+		{
+			ButtonPressed,
+			ButtonReleased
+		}
+
+		struct EventEntry
+		{
+			public readonly DateTime Time;
+			public readonly EventType Type;
+			public readonly MouseState MouseState;
+
+			public EventEntry (DateTime time, EventType type, MouseState state)
+			{
+				Time = time;
+				Type = type;
+				MouseState = state;
+			}
+		}
+
+		public MouseListener ()
+		{
+			const int predetMaxEvents = 10;
+			historial = new List<EventEntry> (predetMaxEvents);
+			DoubleClickThreshold = TimeSpan.FromMilliseconds (100);
+		}
 	}
 }
