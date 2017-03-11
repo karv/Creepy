@@ -5,12 +5,13 @@ namespace Creepy.Trains
 {
 	public class Railroad
 	{
-		TrainStationTileObject Inicio;
-		TrainStationTileObject Fin;
+		public TrainStationTileObject Inicio;
+		public TrainStationTileObject Fin;
 		TrainNetwork Network;
 		float Distancia;
 
-		public void Split(TrainStationTileObject nuevaEstacion){
+		public void Split (TrainStationTileObject nuevaEstacion)
+		{
 			Network.Conectar (nuevaEstacion, Inicio);
 			Network.Conectar (nuevaEstacion, Fin);
 			Network.BorrarVia (this);

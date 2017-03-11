@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Creepy
 {
-	public class PairDictionary <TKey, TValue>
+	public class PairDictionary <TKey, TValue> : IEnumerable<TValue>
+		where TValue : class
 	{
 		public IEqualityComparer<TKey> KeyComparer;
 
@@ -16,12 +18,32 @@ namespace Creepy
 				TValue ret;
 				return intDict.TryGetValue (new Tuple<TKey, TKey> (item0, item1), out ret) ? 
 					ret : 
-					default(TValue);
+					null;
 			}
 			set
 			{
-				intDict [new Tuple<TKey, TKey> (item0, item1)] = value;
+				var tuple = new Tuple<TKey, TKey> (item0, item1);
+				if (value == null)
+					intDict.Remove (tuple);
+				else
+					intDict [tuple] = value;
 			}
+		}
+
+		public bool Remove (TKey item0, TKey item1)
+		{
+			var tuple = new Tuple<TKey, TKey> (item0, item1);
+			return intDict.Remove (tuple);
+		}
+
+		public IEnumerator<TValue> GetEnumerator ()
+		{
+			return intDict.Values.Where (z => !ReferenceEquals (z, null)).GetEnumerator ();
+		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+		{
+			return GetEnumerator ();
 		}
 
 		public PairDictionary (IEqualityComparer<TKey> keyComparer = null)

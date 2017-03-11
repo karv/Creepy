@@ -1,3 +1,4 @@
+
 namespace Creepy.Tiles
 {
 	public class TrainStationTileObject : ITileObject
@@ -11,6 +12,6 @@ namespace Creepy.Tiles
 		/// Gets the train network
 		/// </summary>
 		/// <value>The network.</value>
-		public TrainNetwork Network { get; }
+		public Trains.TrainNetwork Network { get; }
 	}
 }
