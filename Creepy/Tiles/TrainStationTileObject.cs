@@ -1,6 +1,9 @@
+using Microsoft.Xna.Framework;
+using Creepy.Trains;
+
 namespace Creepy.Tiles
 {
-	public class TrainStationTileObject : ITileObject
+	public class TrainStationTileObject : ITileObject, INetworkNode
 	{
 		/// <summary>
 		/// Gets the tile where this object belongs
@@ -12,5 +15,7 @@ namespace Creepy.Tiles
 		/// </summary>
 		/// <value>The network.</value>
 		public TrainNetwork Network { get; }
+
+		public Point Location { get; }
 	}
 }

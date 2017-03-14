@@ -5,8 +5,8 @@ namespace Creepy.Trains
 {
 	public class Railroad
 	{
-		TrainStationTileObject Inicio;
-		TrainStationTileObject Fin;
+		public TrainStationTileObject Inicio { get; private set; }
+		public TrainStationTileObject Fin { get; private set; }
 		TrainNetwork Network;
 		float Distancia;
 
@@ -16,7 +16,7 @@ namespace Creepy.Trains
 			Network.BorrarVia (this);
 		}
 
-		public Railroad (TrainNetwork network, TrainStationTileObject inicio, TrainStationTileObject fin)
+		public Railroad (TrainNetwork network, INetworkNode inicio, INetworkNode fin)
 		{
 			this.Inicio = inicio;
 			this.Fin = fin;

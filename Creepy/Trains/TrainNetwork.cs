@@ -10,12 +10,12 @@ namespace Creepy.Tiles
 	public class TrainNetwork
 	{
 		HashSet<Railroad> Vias;
-		HashSet<TrainStationTileObject> Estaciones;
+		HashSet<TrainStationTileObject> Nodos;
 
-		public void Conectar(TrainStationTileObject inicio, TrainStationTileObject fin){
+		public void Conectar(INetworkNode inicio, INetworkNode fin){
 			Vias.Add(new Railroad(this, inicio, fin));
-			Estaciones.Add (inicio);
-			Estaciones.Add (fin);
+			Nodos.Add (inicio);
+			Nodos.Add (fin);
 		}
 
 		public void BorrarVia(Railroad via){

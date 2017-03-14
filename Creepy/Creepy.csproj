@@ -60,6 +60,9 @@
     <Compile Include="Systems\LavaDynamics.cs" />
     <Compile Include="Trains\TrainNetwork.cs" />
     <Compile Include="Trains\Railroad.cs" />
+    <Compile Include="Trains\INetworkNode.cs" />
+    <Compile Include="Trains\RailroadIntersection.cs" />
+    <Compile Include="Idea de la intersección de las vías.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
